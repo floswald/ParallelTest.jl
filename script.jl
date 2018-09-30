@@ -10,11 +10,11 @@ wrkers = ParallelTest.machines()
 
 println("make everybody say hello")
 
-@everywhere sayhello()
+@everywhere ParallelTest.sayhello()
 
 println("make everybody do some math")
 
-pmap( i->domath(i), [100 for j in 1:length(workers())] )
+pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 
 println("make everybody pass a memory test")
 
