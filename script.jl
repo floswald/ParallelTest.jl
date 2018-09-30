@@ -25,8 +25,10 @@ println("make everybody pass a memory test")
 #println("numworkers: $(length(workers()))")
 #println("workers: $(workers())")
 
-@show @time map( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
-@show @time pmap( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
+info("svd call on master")
+@time map( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
+info("parallel svd call")
+@time pmap( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
 
 println(" quitting ")
 
