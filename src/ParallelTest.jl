@@ -115,7 +115,7 @@ module ParallelTest
 					end
 				end
 			end
-			addprocs(machines)
+			addprocs(machines,sshflags=`-oStrictHostKeyChecking=no`)
 		    info("done. added $(length(workers()))")
 			return(workers())
 		elseif haskey(ENV,"PE_HOSTFILE")
