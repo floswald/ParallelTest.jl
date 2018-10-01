@@ -27,6 +27,8 @@ pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 
 # println("svd call on master")
 # @time ParallelTest.serial();
+println("parallel svd call warm up JIT")
+@time ParallelTest.parallel();
 println("parallel svd call")
 @time ParallelTest.parallel();
 
