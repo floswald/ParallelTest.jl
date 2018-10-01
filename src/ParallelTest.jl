@@ -33,6 +33,9 @@ module ParallelTest
 		mean(x)
 	end
 
+	serial() = map( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32])
+	parallel() = pmap( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32])
+
 
 
 	function doBIGmath(n=30000,m=10000)

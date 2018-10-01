@@ -1,5 +1,5 @@
 
-println("Started julia master process")
+info("Started julia master process")
 using ParallelTest
 
 # do something in your system to start processes:
@@ -8,15 +8,15 @@ wrkers = ParallelTest.machines()
 
 @everywhere using ParallelTest
 
-println("make everybody say hello")
+info("make everybody say hello")
 
 @everywhere ParallelTest.sayhello()
 
-println("make everybody do some math")
+info("make everybody do some math")
 
 pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 
-println("make everybody pass a memory test")
+# println("make everybody pass a memory test")
 
 #pmap( i->doBIGmath(10000,10000), 1:length(workers()) )
 #pmap( i->doBIGmath(15000,10000), 1:length(workers()) )
@@ -25,11 +25,11 @@ println("make everybody pass a memory test")
 #println("numworkers: $(length(workers()))")
 #println("workers: $(workers())")
 
-info("svd call on master")
-@time map( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
+# info("svd call on master")
+# @time ParallelTest.serial();
 info("parallel svd call")
-@time pmap( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
+@time ParallelTest.parallel();
 
-println(" quitting ")
+info(" quitting ")
 
 quit()
