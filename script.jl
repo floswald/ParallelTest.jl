@@ -16,7 +16,7 @@ println("make everybody do some math")
 
 pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 
-println("make everybody pass a memory test")
+# println("make everybody pass a memory test")
 
 #pmap( i->doBIGmath(10000,10000), 1:length(workers()) )
 #pmap( i->doBIGmath(15000,10000), 1:length(workers()) )
@@ -25,10 +25,12 @@ println("make everybody pass a memory test")
 #println("numworkers: $(length(workers()))")
 #println("workers: $(workers())")
 
-info("svd call on master")
-@time map( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
-info("parallel svd call")
-@time pmap( n -> sum(svd(rand(n,n))[1]) , [800 for i in 1:32]);
+# println("svd call on master")
+# @time ParallelTest.serial();
+println("parallel svd call warm up JIT")
+@time ParallelTest.parallel();
+println("parallel svd call")
+@time ParallelTest.parallel();
 
 println(" quitting ")
 
