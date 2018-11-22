@@ -101,6 +101,12 @@ module ParallelTest
 			# magi91
 			machine_file = readlines(`scontrol show hostnames`)
 
+			# designate first machine as master who will call addprocs on the others.
+			# so, if you are not master, exit
+			if gethostname() != machine_file[1]
+				exit()
+			end
+
 			if haskey(ENV,"SLURM_NTASKS")
 				ntasks = 10
 			else
@@ -118,7 +124,7 @@ module ParallelTest
 					end
 				end
 			end
-			addprocs(machines,sshflags=`-oStrictHostKeyChecking=no`)
+			addprocs(machines)
 		    info("done. added $(length(workers()))")
 			return(workers())
 		elseif haskey(ENV,"PE_HOSTFILE")
