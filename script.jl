@@ -1,5 +1,5 @@
 
-println("Started julia master process")
+println("Started julia processes")
 using ParallelTest
 
 # do something in your system to start processes:
@@ -26,11 +26,12 @@ pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 #println("workers: $(workers())")
 
 # println("svd call on master")
-# @time ParallelTest.serial();
-println("parallel svd call warm up JIT")
-@time ParallelTest.parallel();
-println("parallel svd call")
-@time ParallelTest.parallel();
+t0 = @elapsed ParallelTest.serial();
+t0 = @elapsed ParallelTest.serial();
+println("serial call takes $t0")
+t1 = @elapsed ParallelTest.parallel();
+t1 = @elapsed ParallelTest.parallel();
+println("parallel call takes $t1")
 
 println(" quitting ")
 
