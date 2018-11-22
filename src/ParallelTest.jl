@@ -104,6 +104,7 @@ module ParallelTest
 			# designate first machine as master who will call addprocs on the others.
 			# so, if you are not master, exit
 			if gethostname() != machine_file[1]
+				println("I am not the master, so goodbye")
 				exit()
 			end
 
