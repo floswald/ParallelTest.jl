@@ -100,10 +100,12 @@ module ParallelTest
 			# magi90
 			# magi91
 			machine_file = readlines(`scontrol show hostnames`)
+			pids = readlines(`pgrep julia`)
 
-			# designate first machine as master who will call addprocs on the others.
+
+			# designate first process id as master who will call addprocs on the others.
 			# so, if you are not master, exit
-			if gethostname() != machine_file[1]
+			if getpid() != parse(Int,pids[1])
 				println("I am not the master, so goodbye")
 				exit()
 			end
