@@ -109,7 +109,7 @@ module ParallelTest
 			end
 
 			if haskey(ENV,"SLURM_NTASKS")
-				ntasks = 10
+				ntasks = ENV["SLURM_NTASKS"]
 			else
 				ntasks = length(machine_file)
 			end
@@ -118,12 +118,7 @@ module ParallelTest
 			machines = AbstractString[]
 			task = 0
 			for m in machine_file
-				if task < ntasks
-					for w in 1:ppn
-						push!(machines,m)
-						task += 1
-					end
-				end
+				push!(machines,(m,ppn))
 			end
 			addprocs(machines)
 		    info("done. added $(length(workers()))")
