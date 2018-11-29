@@ -115,7 +115,7 @@ module ParallelTest
 			end
 			ppn = ntasks / length(machine_file)
 
-			machines = AbstractString[]
+			machines = []
 			task = 0
 			for m in machine_file
 				push!(machines,(m,ppn))
