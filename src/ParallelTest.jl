@@ -117,11 +117,7 @@ module ParallelTest
 			end
 			ppn = ntasks / length(machine_file)
 
-			machines = []
-			task = 0
-			for m in machine_file
-				push!(machines,(m,ppn))
-			end
+			machines = [(i,ppn) for i in machine_file]
 			addprocs(machines)
 		    info("done. added $(length(workers()))")
 			return(workers())
