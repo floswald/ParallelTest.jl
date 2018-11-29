@@ -109,7 +109,7 @@ module ParallelTest
 			end
 
 			if haskey(ENV,"SLURM_NTASKS")
-				ntasks = ENV["SLURM_NTASKS"]
+				ntasks = parse(Int,ENV["SLURM_NTASKS"])
 			else
 				ntasks = length(machine_file)
 			end
