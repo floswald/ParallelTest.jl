@@ -47,7 +47,7 @@ module ParallelTest
 	end
 
 	function machines()
-
+sayhello()
 		# which scheduler system
 		if haskey(ENV,"PBS_NODEFILE")
 			sys = :pbs 
@@ -119,7 +119,8 @@ module ParallelTest
 
 			machines = [(i,ppn) for i in machine_file]
 			addprocs(machines)
-		    info("done. added $(length(workers()))")
+		    println("done. added $(length(workers()))")
+		    println("workers: $(workers())")
 			return(workers())
 		elseif haskey(ENV,"PE_HOSTFILE")
 			sys = :sge
