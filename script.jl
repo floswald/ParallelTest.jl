@@ -18,7 +18,7 @@ pmap( i->ParallelTest.domath(i), [100 for j in 1:length(workers())] )
 
 # println("make everybody pass a memory test")
 
-#pmap( i->doBIGmath(10000,10000), 1:length(workers()) )
+pmap( i->ParallelTest.doBIGmath(10000,10000), 1:length(workers()) )
 #pmap( i->doBIGmath(15000,10000), 1:length(workers()) )
 
 #println("trying parallel for loop with $(nprocs()) processes")

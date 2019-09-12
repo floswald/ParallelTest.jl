@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name=jltest
+#SBATCH --output=partest.out
+#SBATCH --error=partest.err
+#SBATCH --partition=cpushort
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=8
+#SBATCH --nodelist=cnode[053,055]
+
+#srun -l julia script.jl
+julia6 script.jl

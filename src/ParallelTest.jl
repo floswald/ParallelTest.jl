@@ -115,9 +115,8 @@ sayhello()
 			else
 				ntasks = length(machine_file)
 			end
-			ppn = ntasks / length(machine_file)
 
-			machines = [(i,ppn) for i in machine_file]
+			machines = [(i,ntasks) for i in machine_file]
 			addprocs(machines)
 		    println("done. added $(length(workers()))")
 		    println("workers: $(workers())")
