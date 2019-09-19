@@ -46,8 +46,8 @@ module ParallelTest
 		mean(x)
 	end
 
-	function machines()
-sayhello()
+	function machines(; verbose = false)
+		if verbose sayhello() end
 		# which scheduler system
 		if haskey(ENV,"PBS_NODEFILE")
 			sys = :pbs 
