@@ -100,10 +100,10 @@ module ParallelTest
 			# magi90
 			# magi91
 			machine_file = readlines(`scontrol show hostnames`)
-			println(machine_file)
+			println("ParallelTest :: machine file $machine_file")
 			pids = readlines(`pgrep julia`)
 
-			println(pids)
+			println("ParallelTest :: pids = $pids")
 
 			# designate first process id as master who will call addprocs on the others.
 			# so, if you are not master, exit
@@ -113,19 +113,18 @@ module ParallelTest
 			end
 
 			sleep(5)
-			println("haskey? $(haskey(ENV,"SLURM_NTASKS"))")
 			if haskey(ENV,"SLURM_NTASKS")
-				tasks_per_cpu = floor(parse(Int,ENV["SLURM_NTASKS"]) / length(machine_file))
+				tasks_per_cpu = floor(Int,parse(Int,ENV["SLURM_NTASKS"]) / length(machine_file))
 			else
 				tasks_per_cpu = length(machine_file)
 			end
-			println(ntasks)
+			println("ParallelTest :: tasks per cpu: $tasks_per_cpu")
 
-			machines = [(i,ntasks) for i in machine_file]
-			println(machines)
+			machines = [(i,tasks_per_cpu) for i in machine_file]
+			println("ParallelTest :: array of machines: $machines")
 			addprocs(machines)
-		    println("done. added $(length(workers()))")
-		    println("workers: $(workers())")
+		        println("ParallelTest :: done. added $(length(workers()))")
+		        println("ParallelTest :: workers: $(workers())")
 			return(workers())
 		elseif haskey(ENV,"PE_HOSTFILE")
 			sys = :sge
