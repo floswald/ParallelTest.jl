@@ -110,13 +110,17 @@ module ParallelTest
 				exit()
 			end
 
+			sleep(5)
+			println("haskey? $(haskey(ENV,"SLURM_NTASKS"))")
 			if haskey(ENV,"SLURM_NTASKS")
 				ntasks = parse(Int,ENV["SLURM_NTASKS"])
 			else
 				ntasks = length(machine_file)
 			end
+			println(ntasks)
 
 			machines = [(i,ntasks) for i in machine_file]
+			println(machines)
 			addprocs(machines)
 		    println("done. added $(length(workers()))")
 		    println("workers: $(workers())")
