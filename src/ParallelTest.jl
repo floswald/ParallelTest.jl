@@ -100,8 +100,10 @@ module ParallelTest
 			# magi90
 			# magi91
 			machine_file = readlines(`scontrol show hostnames`)
+			println(machine_file)
 			pids = readlines(`pgrep julia`)
 
+			println(pids)
 
 			# designate first process id as master who will call addprocs on the others.
 			# so, if you are not master, exit
@@ -113,9 +115,9 @@ module ParallelTest
 			sleep(5)
 			println("haskey? $(haskey(ENV,"SLURM_NTASKS"))")
 			if haskey(ENV,"SLURM_NTASKS")
-				ntasks = parse(Int,ENV["SLURM_NTASKS"])
+				tasks_per_cpu = floor(parse(Int,ENV["SLURM_NTASKS"]) / length(machine_file))
 			else
-				ntasks = length(machine_file)
+				tasks_per_cpu = length(machine_file)
 			end
 			println(ntasks)
 
