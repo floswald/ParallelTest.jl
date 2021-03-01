@@ -100,8 +100,12 @@ module ParallelTest
 			# magi90
 			# magi91
 			machine_file = readlines(`scontrol show hostnames`)
+			if (gethostname() != machine_file[1])
+				# println("shutting down this process because not master")
+				exit()
+			end
 			println("ParallelTest :: machine file $machine_file")
-			pids = readlines(`pgrep julia`)
+			pids = readlines(`pgrep julia`)  # get process ids on surviving machine
 
 			println("ParallelTest :: pids = $pids")
 
